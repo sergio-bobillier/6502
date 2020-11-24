@@ -5,10 +5,20 @@ require_relative 'memory'
 
 class Processor
   RESET_VECTOR = 0xFFFC
-  DEFAULT_STATUS = 0x20
+
+  DEFAULT_STATUS = 0b00100000
+  #                  || |||||
+  #                  || ||||+- Carry
+  #                  || |||+-- Zero
+  #                  || ||+--- IRQ Disable
+  #                  || |+---- Decimal Mode
+  #                  || +----- Break Command
+  #                  |+------- Overflow
+  #                  +-------- Negative
+
   STACK_START = 0x01FF
 
-  attr_reader :memory, :decoder, :accumulator, :index_x, :index_y,
+  attr_reader :memory, :decoder, :accumulator, :x_index, :y_index,
               :program_counter, :status, :stack_pointer
 
   def initialize(memory: Memory.new, decoder: Decoder.new)
@@ -21,8 +31,8 @@ class Processor
     clock&.kill
 
     @accumulator = 0
-    @index_x = 0
-    @index_y = 0
+    @x_index = 0
+    @y_index = 0
     @program_counter = RESET_VECTOR
     @status = DEFAULT_STATUS
     @stack_pointer = STACK_START

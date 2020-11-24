@@ -6,6 +6,7 @@ gem 'rspec'
 
 group :development do
   gem 'pry'
+  gem 'reek'
   gem 'rubocop'
   gem 'rubocop-rspec'
 end
