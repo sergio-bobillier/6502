@@ -43,7 +43,7 @@ RSpec.describe Array do
 
       it 'raise a TypeError' do
         expect { array.to_i }.to raise_error(
-          TypeError, "Value out of bounds: 258"
+          TypeError, 'Value out of bounds: 258'
         )
       end
     end
