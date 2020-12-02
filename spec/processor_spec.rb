@@ -114,5 +114,23 @@ RSpec.describe Processor do
     before { processor } # Triggers the execution of the initialize method
 
     it_behaves_like 'Processor#reset'
+
+    it 'does not start a clock thread' do
+      expect(Thread).not_to receive(:new)
+      method_call
+    end
+  end
+
+  describe '#reset!' do
+    subject(:method_call) { processor.reset! }
+
+    before { processor } # Triggers the execution of the initialize method
+
+    it_behaves_like 'Processor#reset'
+
+    it 'Starts the clock thread' do
+      expect(Thread).to receive(:new).and_call_original
+      method_call
+    end
   end
 end
