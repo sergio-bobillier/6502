@@ -44,7 +44,9 @@ RSpec.shared_examples_for 'Processor#reset' do
 end
 
 RSpec.describe Processor do
-  subject(:processor) { described_class.new }
+  subject(:processor) do
+    described_class.new(memory: memory, decoder: decoder)
+  end
 
   let(:memory) do
     instance_double(
@@ -65,44 +67,12 @@ RSpec.describe Processor do
   describe '#initialize' do
     subject(:method_call) { processor } # needed for the behaves_like
 
-    context 'without a given memory' do
-      it 'creates a new default memory storage' do
-        expect(Memory).to receive(:new).with(no_args)
-        processor
-      end
+    it 'assigns the given memory' do
+      expect(processor.memory).to eq(memory)
     end
 
-    context 'when a memory is given' do
-      subject(:processor) { described_class.new(memory: memory) }
-
-      it 'does not create a new memory' do
-        expect(Memory).not_to receive(:new)
-        processor
-      end
-
-      it 'assigns the given memory' do
-        expect(processor.memory).to eq(memory)
-      end
-    end
-
-    context 'without a given decoder' do
-      it 'creates a new default decoder' do
-        expect(Decoder).to receive(:new).with(no_args)
-        processor
-      end
-    end
-
-    context 'when a decoder is given' do
-      subject(:processor) { described_class.new(decoder: decoder) }
-
-      it 'does not create a new decoder' do
-        expect(Decoder).not_to receive(:new)
-        processor
-      end
-
-      it 'assigns the given decoder' do
-        expect(processor.decoder).to eq(decoder)
-      end
+    it 'assigns the given decoder' do
+      expect(processor.decoder).to eq(decoder)
     end
 
     it_behaves_like 'Processor#reset'

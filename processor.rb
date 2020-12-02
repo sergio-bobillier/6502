@@ -23,7 +23,7 @@ class Processor
   attr_reader :memory, :decoder, :accumulator, :x_index, :y_index,
               :program_counter, :status, :stack_pointer
 
-  def initialize(memory: Memory.new, decoder: Decoder.new)
+  def initialize(memory:, decoder:)
     @memory = memory
     @decoder = decoder
     reset
