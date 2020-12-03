@@ -56,7 +56,10 @@ RSpec.describe Processor do
   end
 
   let(:decoder) do
-    instance_double(Decoder)
+    instance_double(
+      Decoder,
+      decode_at: nil
+    )
   end
 
   before do
@@ -92,7 +95,12 @@ RSpec.describe Processor do
   end
 
   describe '#reset!' do
-    subject(:method_call) { processor.reset! }
+    subject(:method_call) do
+      processor.reset!
+
+      # Needed because RSpec Mocks do not work well in multi-threaded environments
+      processor.wait
+    end
 
     before { processor } # Triggers the execution of the initialize method
 
@@ -101,6 +109,17 @@ RSpec.describe Processor do
     it 'Starts the clock thread' do
       expect(Thread).to receive(:new).and_call_original
       method_call
+    end
+
+    describe 'run' do
+      before { allow(memory).to receive(:read).and_return(0x44) }
+
+      it 'asks the decoder to decode the first instruction' do
+        # The first instruction should be in the address marked by the value
+        # stored in the reset vector.
+        expect(decoder).to receive(:decode_at).with(0x4444)
+        method_call
+      end
     end
   end
 end
