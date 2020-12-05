@@ -50,7 +50,7 @@ class Processor
   # Blocks the current Thread until the processor finishes (halts or crash).
   # Mainly needed for testing.
   def wait
-    @clock.join
+    clock.join
   end
 
   private

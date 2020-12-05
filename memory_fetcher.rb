@@ -2,6 +2,7 @@
 
 require_relative 'refinaments/array'
 
+# Contains methods for reading from memory.
 module MemoryFetcher
   private
 

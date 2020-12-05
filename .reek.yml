@@ -1,3 +1,5 @@
 detectors:
   TooManyStatements:
     max_statements: 10
+  LongParameterList:
+    max_params: 5
