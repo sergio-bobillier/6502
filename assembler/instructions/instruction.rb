@@ -76,7 +76,7 @@ module Assembler
         operand_length = operand.bit_length
         return if operand_length <= opcode_data[:size]
 
-        raise Assembler::Errors::OverflowError,
+        raise ::Assembler::Errors::OverflowError,
               "#{operand_length}-bit literal #{operand_literal} is too long"
       end
 
@@ -92,7 +92,7 @@ module Assembler
       #   cannot be found.
       def opcodes_by_mnemonic(mnemonic)
         OPCODES_MAP[mnemonic] || raise(
-          Assembler::Errors::UnknownMnemonicError, mnemonic
+          ::Assembler::Errors::UnknownMnemonicError, mnemonic
         )
       end
 
@@ -112,7 +112,7 @@ module Assembler
           return Array(addressing_mode)
         end
 
-        raise Assembler::Errors::SyntaxError,
+        raise ::Assembler::Errors::SyntaxError,
               "Unknown, incompatible or malformed argument: #{argument}"
       end
 
@@ -128,7 +128,7 @@ module Assembler
         @opcode_data ||= opcodes_by_mnemonic(mnemonic).find do |opcode_data|
           addressing_modes.include?(opcode_data[:addressing_mode])
         end || raise(
-          Assembler::Errors::SyntaxError,
+          ::Assembler::Errors::SyntaxError,
           "Invalid addresing mode: #{addressing_modes.join(', ')} for the #{mnemonic} mnemonic"
         )
       end
