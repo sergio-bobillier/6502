@@ -62,6 +62,9 @@ module Assembler
         @addressing_modes ||= derive_addressing_mode
       end
 
+      # Assembles the instruction: Convers the given mnemonic and argument into
+      # the corresponding machine-language opcode and operand.
+      # @return [nil] Always returns nil.
       def assemble
         @opcode = opcode_data[:opcode]
         @operand = parse_operand
