@@ -1,6 +1,8 @@
 AllCops:
   NewCops: enable
-Style/ConditionalAssignment:
-  EnforcedStyle: assign_inside_condition
 Metrics/MethodLength:
   Max: 15
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_inside_condition
