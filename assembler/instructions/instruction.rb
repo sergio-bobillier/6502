@@ -8,7 +8,9 @@ require_relative 'addressing_modes'
 
 module Assembler
   module Instructions
-    # Base class for all instruction classes
+    # Represents an instruction for the 6502 micro-processor. It starts as
+    # Assembly Language text (a mnemonic and and argument). It is capable of
+    # assembling itself into machine language (an opcode and an operand).
     class Instruction
       include Assembler::Instructions::Mnemonics
       include Assembler::Instructions::AddressingModes
@@ -28,8 +30,7 @@ module Assembler
 
       attr_reader :mnemonic, :argument
 
-      # Creates a new instruction from the given arguments, either `opcode` and
-      # `operand` or `mnemonic` and `argument` can be given.
+      # Creates a new instruction from the given arguments.
       # @param [Sting] mnemonic The Instruction's mnemonic.
       # @param [String] argument Instruction's argument (may be nil for implied
       #   addressing modes)
@@ -62,9 +63,12 @@ module Assembler
         @addressing_modes ||= derive_addressing_mode
       end
 
-      # Assembles the instruction: Convers the given mnemonic and argument into
+      # Assembles the instruction: Converts the given mnemonic and argument into
       # the corresponding machine-language opcode and operand.
       # @return [nil] Always returns nil.
+      # @raise [Assembler::Errors::AssemblerError] If an error is encountered
+      #   while trying to assemble the instruction. Note that a subclass of the
+      #   +AssemblerError+ and not +AssemblerError+ itself will be raised.
       def assemble
         @opcode = opcode_data[:opcode]
         @operand = parse_operand
