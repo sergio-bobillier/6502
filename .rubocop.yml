@@ -6,3 +6,4 @@ Naming/RescuedExceptionsVariableName:
   Enabled: false
 Style/ConditionalAssignment:
   EnforcedStyle: assign_inside_condition
+  IncludeTernaryExpressions: false
