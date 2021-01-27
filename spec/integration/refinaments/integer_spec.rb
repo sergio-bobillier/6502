@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../refinaments/integer'
-require_relative '../../refinaments/array'
+require_relative '../../../refinaments/integer'
+require_relative '../../../refinaments/array'
 
 RSpec.describe Integer do
   describe '#to_a -> #to_i' do
