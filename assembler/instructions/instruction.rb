@@ -52,7 +52,7 @@ module Assembler
       # @return [Integer] The size of the instruction in bytes:
       #   1 byte for the opcode + the size of the operand
       def size
-        @size || assemble || (1 + (operand.bit_length / 8.0).ceil)
+        @size || assemble || @size = (1 + (operand.bit_length / 8.0).ceil)
       end
 
       # @return [Array<String>] The array of addressing modes deducted from the
