@@ -32,9 +32,9 @@ module Assembler
 
       # Creates a new instruction from the given arguments.
       # @param [Sting] mnemonic The Instruction's mnemonic.
-      # @param [String] argument Instruction's argument (may be nil for implied
-      #   addressing modes)
-      def initialize(mnemonic, argument)
+      # @param [String, nil] argument Instruction's argument (may be nil for
+      #   implied addressing modes)
+      def initialize(mnemonic, argument = nil)
         @mnemonic = mnemonic.upcase
         @argument = argument
       end

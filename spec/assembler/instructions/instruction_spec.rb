@@ -100,6 +100,14 @@ RSpec.describe Assembler::Instructions::Instruction do
   let(:argument) { '#$22' }
 
   describe '#initialize' do
+    context 'when no argument is given' do
+      subject(:instruction) { described_class.new(mnemonic) }
+
+      it 'does not raise any errors' do
+        expect { instruction }.not_to raise_error
+      end
+    end
+
     context 'when the given mnemonic is in lowercase' do
       let(:mnemonic) { 'ldx' }
 
